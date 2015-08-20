@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Home Page</title>
+
+    <link rel="stylesheet" type="text/css" href="semantic.min.css">
+    <script src="jquery-1.11.3.min.js"></script>
+    <script src="semantic.min.js"></script>
+</head>
+    
+<body>
+    <div id="imageList">
+        <img src="Pictures/bali1.JPG" alt="" style="display: block; padding: 0;  max-height: 200px;" />
+        <img src="Pictures/bali2.JPG" alt="" class="noDisplay" style="display:none; visibility: hidden; padding: 0;  max-height: 200px;"/>
+    </div>
+</body>
+</html>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		var imageList = document.getElementById('imageList');
+        var pictures = imageList.getElementsByTagName('img');
+        var next = pictures[0];
+
+        setInterval(function () { carousel() }, 6000);
+
+        function carousel() {
+            for (var i = 0; i < pictures.length; i++) {
+                if (!$(pictures[i]).hasClass("noDisplay")) {
+                    
+                    if (i == pictures.length - 1) {
+                        next = pictures[0];
+                        next.style.visibility = "hidden";
+                    } else {
+                        next = pictures[i].nextElementSibling;
+                    }
+                    
+                    pictures[i].className = 'noDisplay';
+                    pictures[i].style.display = 'none';
+
+
+                    $(next).removeClass('noDisplay');
+                    
+                    // Uses semantic-ui transition but you can use any transition that you like. This
+                    // portion may not work with yours depending on your framework, but most of the logic is already
+                    // explained above.
+                    $(next).transition({
+                        animation: 'fade',
+                        duration: '1s',
+                        displayType: 'hidden'
+                    });
+                    break;
+                }
+            }
+        }
+     });   
+</script>        
